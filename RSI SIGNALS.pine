@@ -1,0 +1,29 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © gokayburuc
+
+//@version=4
+
+
+study('RSI SIGNALS' , overlay = true )
+
+// get user input
+
+rsiSource = input(title ='RSI SOURCE' , type = input.source , defval =close)
+rsiLength = input(title = 'RSI LENGTH', type = input.integer , defval = 14)
+rsiOverBought = input(title = 'RSI OVERBOUGHT LEVEL',type = input.integer , defval = 80 )
+rsiOverSold = input(title = 'RSI OVERSOLD LEVEL',  type = input.integer , defval = 20 )
+
+//GET Rsi Value
+
+rsiValue = rsi(rsiSource , rsiLength)
+isRsiOverBought = rsiValue >= rsiOverBought
+isRsiOverSold = rsiValue <= rsiOverSold
+
+
+// plot signals to chart
+
+plotshape(isRsiOverBought, title = 'Over Bought' , location = location.abovebar , color = color.red , transp = 0 , style = shape.triangledown , text = 'Sell')
+plotshape(isRsiOverSold , title = 'Over Sold' , location = location.belowbar , color = color.green , transp =0 , style = shape.triangleup , text = 'Buy')
+
+// send alert 
+

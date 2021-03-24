@@ -1,0 +1,8 @@
+//@version=4
+study(title="Correlation Coeff", shorttitle="CC", format=format.price, precision=2)
+sym = input(title="Symbol", type=input.symbol, defval="GOOG", confirm=true)
+src = input(close, title="Source")
+length = input(20, minval=1)
+res=timeframe.period
+ovr = security(sym, res, src)
+plot(correlation(src, ovr, length), "Correlation", color=color.red, style=plot.style_area, transp=0)
